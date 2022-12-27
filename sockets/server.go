@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func handleRequest(conn net.Conn, idx index.Index){
+func handleRequest(conn net.Conn, idx index.Index) {
 	for {
 		netData, err := bufio.NewReader(conn).ReadString('\n')
 		if err != nil {

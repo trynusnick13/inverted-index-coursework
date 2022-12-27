@@ -22,7 +22,7 @@ func CleanTerm(term string) (string, error) {
 	re := regexp.MustCompile(`[.,'">/?*;:!()%&]*`)
 	finalTerm := re.ReplaceAllString(term, "")
 	finalTerm = strings.TrimSuffix(finalTerm, "<br")
-	
+
 	return finalTerm, nil
 }
 

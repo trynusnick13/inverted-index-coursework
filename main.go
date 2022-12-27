@@ -18,6 +18,6 @@ func main() {
 	createdIndex := index.BuildIndex([]string{"data"}, 10000)
 	createdIndex.Display()
 	fmt.Println("Finished building inverted index")
-	
+
 	sockets.StartServer(createdIndex)
 }
