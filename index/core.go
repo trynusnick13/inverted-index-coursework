@@ -12,7 +12,7 @@ import (
 
 var (
 	mu            sync.Mutex // can be considered to use RWLock if index will be dynamically scaled(profit in fast read)
-	maxGoroutines = 40
+	maxGoroutines = 1
 	semaphore     = make(chan struct{}, maxGoroutines)
 )
 
@@ -39,7 +39,7 @@ func (idx *Index) AddItem(item IndexItem, routineName string) {
 	hash := hash(item.Key)
 	bucketIdx := hash % int(idx.Length)
 	mu.Lock()
-	fmt.Printf("Routine %s acquiring the Lock \n", routineName)
+	// fmt.Printf("Routine %s acquiring the Lock \n", routineName)
 	// time.Sleep(5 * time.Second)
 	defer mu.Unlock()
 	bucketValue := idx.Buckets[bucketIdx]
@@ -53,7 +53,7 @@ func (idx *Index) AddItem(item IndexItem, routineName string) {
 			idx.OverflowBuckets[bucketIdx].Insert(item)
 		}
 	}
-	fmt.Printf("Routine %s releasing the Lock \n", routineName)
+	// fmt.Printf("Routine %s releasing the Lock \n", routineName)
 }
 
 func (idx *Index) GetItem(key string) string {

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"indexer/index"
-	"indexer/sockets"
+	"time"
 )
 
 func check(e error) {
@@ -13,11 +13,15 @@ func check(e error) {
 }
 
 func main() {
-	// things need to add - debug mode(with an extra prints)
-	// print all the keys
-	createdIndex := index.BuildIndex([]string{"data"}, 10000)
-	createdIndex.Display()
-	fmt.Println("Finished building inverted index")
-
-	sockets.StartServer(createdIndex)
+	totalTime := 0.0
+	benchmarkResults := make([]time.Duration, 0, 10)
+	for i := 1; i <= 5; i++ {
+		start := time.Now()
+		index.BuildIndex([]string{"data"}, 10000)
+		elapsed := time.Since(start)
+		benchmarkResults = append(benchmarkResults, elapsed)
+		totalTime += float64(elapsed)/100_000_000
+	}
+	fmt.Println(benchmarkResults)
+	fmt.Printf("Average execution time: %f \n", totalTime/10)
 }
