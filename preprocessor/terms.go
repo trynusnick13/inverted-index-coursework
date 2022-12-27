@@ -3,7 +3,6 @@ package preprocessor
 import (
 	"regexp"
 	"strings"
-	// "strings"
 )
 
 func contains(terms []string, str string) bool {

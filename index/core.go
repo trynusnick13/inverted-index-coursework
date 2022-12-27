@@ -95,12 +95,12 @@ func (idx *Index) Display() {
 func BuildIndex(folders []string, size uint32) Index {
 	var wg sync.WaitGroup
 	temp := make([]IndexItem, size)
-	temp_over := make([]LinkedList, size)
-	idx := Index{Buckets: temp, Length: size, OverflowBuckets: temp_over}
+	tempOverflow := make([]LinkedList, size)
+	idx := Index{Buckets: temp, Length: size, OverflowBuckets: tempOverflow}
 	for _, folder := range folders {
 		files := scrapper.GetAllFilesToRead(folder)
 		for i, file := range files {
-			if i >= 2000 {
+			if i >= 3000 {
 				break
 			}
 			wg.Add(1)
